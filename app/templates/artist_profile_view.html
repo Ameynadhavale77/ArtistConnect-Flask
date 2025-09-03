@@ -2,6 +2,13 @@
 {% block content %}
 <div class="profile">
   <div class="profile-header">
+    {% if artist.artist_profile.profile_image %}
+      <div style="margin-bottom: 20px;">
+        <img src="{{ url_for('static', filename='uploads/' + artist.artist_profile.profile_image) }}" 
+             style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%; border: 3px solid #ddd;" 
+             alt="Profile picture of {{ artist.name }}">
+      </div>
+    {% endif %}
     <h2>{{ artist.name }}</h2>
     <p class="muted">{{ artist.artist_profile.category }} · {{ artist.artist_profile.location }}</p>
   </div>

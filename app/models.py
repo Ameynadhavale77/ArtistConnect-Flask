@@ -28,6 +28,7 @@ class ArtistProfile(db.Model):
     bio = db.Column(db.Text, nullable=True)
     demo_links = db.Column(db.Text, nullable=True)  # newline separated links
     charges = db.Column(db.String(80), nullable=True)  # optional text
+    profile_image = db.Column(db.String(200), nullable=True)  # filename for profile image
 
 class OrganizerProfile(db.Model):
     id = db.Column(db.Integer, primary_key=True)

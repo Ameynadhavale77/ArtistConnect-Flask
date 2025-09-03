@@ -1,12 +1,21 @@
 {% extends "base.html" %}
 {% block content %}
 <h2>Edit Artist Profile</h2>
-<form method="post" class="form">
+<form method="post" enctype="multipart/form-data" class="form">
   <label>Category <input type="text" name="category" value="{{ profile.category or '' }}" placeholder="Singer, DJ, Dancer..." required></label>
   <label>Location <input type="text" name="location" value="{{ profile.location or '' }}" placeholder="Mumbai, Pune..." required></label>
   <label>Charges (optional) <input type="text" name="charges" value="{{ profile.charges or '' }}" placeholder="e.g. ₹5000 per show"></label>
   <label>Bio <textarea name="bio" rows="5" placeholder="Tell organizers about yourself">{{ profile.bio or '' }}</textarea></label>
   <label>Demo Links (one per line)<textarea name="demo_links" rows="4" placeholder="YouTube/Drive/Spotify links">{{ profile.demo_links or '' }}</textarea></label>
+  <label>Profile Image
+    {% if profile.profile_image %}
+      <div style="margin: 10px 0;">
+        <img src="{{ url_for('static', filename='uploads/' + profile.profile_image) }}" style="max-width: 200px; max-height: 200px; border-radius: 8px;" alt="Current profile image">
+        <p class="muted" style="font-size: 0.9em;">Current image (upload a new one to replace)</p>
+      </div>
+    {% endif %}
+    <input type="file" name="profile_image" accept="image/*">
+  </label>
   <button class="btn" type="submit">Save Profile</button>
 </form>
 {% endblock %}

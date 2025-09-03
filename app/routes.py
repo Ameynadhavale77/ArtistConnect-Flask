@@ -1,4 +1,7 @@
 from flask import render_template, request, redirect, url_for, session, flash
+import os
+import uuid
+from werkzeug.utils import secure_filename
 from . import db
 from .models import User, ArtistProfile, OrganizerProfile, BookingRequest
 
@@ -121,6 +124,34 @@ def artist_profile_edit():
         prof.bio = request.form.get("bio","").strip()
         prof.demo_links = request.form.get("demo_links","").strip()
         prof.charges = request.form.get("charges","").strip()
+        
+        # Handle profile image upload
+        if 'profile_image' in request.files:
+            file = request.files['profile_image']
+            if file.filename != '' and file:
+                # Check if file is an image
+                allowed_extensions = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
+                if '.' in file.filename and file.filename.rsplit('.', 1)[1].lower() in allowed_extensions:
+                    # Generate unique filename
+                    extension = file.filename.rsplit('.', 1)[1].lower()
+                    filename = f"{uuid.uuid4().hex}.{extension}"
+                    
+                    # Save file
+                    upload_path = os.path.join(os.path.dirname(__file__), 'static', 'uploads', filename)
+                    file.save(upload_path)
+                    
+                    # Delete old image if exists
+                    if prof.profile_image:
+                        old_path = os.path.join(os.path.dirname(__file__), 'static', 'uploads', prof.profile_image)
+                        if os.path.exists(old_path):
+                            os.remove(old_path)
+                    
+                    # Update profile
+                    prof.profile_image = filename
+                    flash("Profile image updated!", "success")
+                else:
+                    flash("Please upload a valid image file (PNG, JPG, JPEG, GIF, or WebP).", "warning")
+        
         db.session.commit()
         flash("Profile updated!", "success")
         return redirect(url_for("artist_profile_view", user_id=user.id))
