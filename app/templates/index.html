@@ -13,6 +13,13 @@
     <div class="grid">
       {% for prof in top_artists %}
         <div class="card">
+          {% if prof.profile_image %}
+            <div style="text-align: center; margin-bottom: 15px;">
+              <img src="{{ url_for('static', filename='uploads/' + prof.profile_image) }}" 
+                   style="width: 80px; height: 80px; object-fit: cover; border-radius: 50%; border: 2px solid #eee;" 
+                   alt="Profile picture of {{ prof.user.name }}">
+            </div>
+          {% endif %}
           <h3>{{ prof.user.name }}</h3>
           <p class="muted">{{ prof.category }} · {{ prof.location }}</p>
           <p>{{ (prof.bio or '')[:120] }}{% if prof.bio and prof.bio|length>120 %}...{% endif %}</p>
