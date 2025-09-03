@@ -19,14 +19,12 @@ def create_app():
     load_dotenv()
     app = Flask(__name__, template_folder="templates", static_folder="static")
     app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "dev-secret")
-    db_url = os.getenv("DATABASE_URL", "sqlite:///artistconnect.db")
-    if db_url.startswith("sqlite:///"):
-        # SQLite needs absolute path for flask run from different cwd
-        db_path = db_url.replace("sqlite:///", "")
-        db_path = os.path.abspath(db_path)
-        app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + db_path
-    else:
-        app.config["SQLALCHEMY_DATABASE_URI"] = db_url
+    # Force SQLite for this project regardless of environment DATABASE_URL
+    db_url = "sqlite:///artistconnect.db"
+    # SQLite needs absolute path for flask run from different cwd
+    db_path = db_url.replace("sqlite:///", "")
+    db_path = os.path.abspath(db_path)
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + db_path
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
     db.init_app(app)
