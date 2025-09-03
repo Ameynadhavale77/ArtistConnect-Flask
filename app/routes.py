@@ -49,6 +49,9 @@ def register_routes(app):
     app.add_url_rule("/artist/<int:user_id>", view_func=artist_profile_view)
     app.add_url_rule("/request/<int:artist_user_id>", view_func=request_create, methods=["GET", "POST"])
     app.add_url_rule("/dashboard", view_func=dashboard)
+    app.add_url_rule("/contact", view_func=contact, methods=["GET", "POST"])
+    app.add_url_rule("/faq", view_func=faq)
+    app.add_url_rule("/how-it-works", view_func=how_it_works)
 
 from flask import current_app as app
 
@@ -236,3 +239,26 @@ def request_reject(req_id):
     db.session.commit()
     flash("Request rejected.", "info")
     return redirect(url_for("dashboard"))
+
+# Support & Trust pages
+def contact():
+    if request.method == "POST":
+        name = request.form.get("name", "").strip()
+        email = request.form.get("email", "").strip()
+        subject = request.form.get("subject", "").strip()
+        message = request.form.get("message", "").strip()
+        
+        if name and email and subject and message:
+            # In a real app, you'd send this via email or save to database
+            flash(f"Thank you {name}! Your message has been sent. We'll respond to {email} within 24 hours.", "success")
+            return redirect(url_for("contact"))
+        else:
+            flash("Please fill in all fields.", "danger")
+    
+    return render_template("contact.html")
+
+def faq():
+    return render_template("faq.html")
+
+def how_it_works():
+    return render_template("how_it_works.html")

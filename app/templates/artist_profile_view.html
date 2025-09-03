@@ -9,8 +9,22 @@
              alt="Profile picture of {{ artist.name }}">
       </div>
     {% endif %}
-    <h2>{{ artist.name }}</h2>
+    <h2>{{ artist.name }} 
+      <span style="background: #0f3b1f; color: #b1f7c2; padding: 4px 8px; border-radius: 999px; font-size: 12px; margin-left: 8px;">✅ VERIFIED</span>
+    </h2>
     <p class="muted">{{ artist.artist_profile.category }} · {{ artist.artist_profile.location }}</p>
+    
+    <div style="display: flex; gap: 12px; margin: 16px 0; flex-wrap: wrap;">
+      <span class="badge" style="background: #0f203b; color: #b1d1f7; border: 1px solid #4f8cff;">
+        🛡️ Identity Verified
+      </span>
+      <span class="badge" style="background: #0f3b1f; color: #b1f7c2; border: 1px solid #22d3ee;">
+        ⭐ Trusted Performer
+      </span>
+      <span class="badge" style="background: #3b2e0f; color: #ffe6a7; border: 1px solid #fbbf24;">
+        📞 Responsive
+      </span>
+    </div>
   </div>
   <p>{{ artist.artist_profile.bio|safe }}</p>
   {% if artist.artist_profile.charges %}

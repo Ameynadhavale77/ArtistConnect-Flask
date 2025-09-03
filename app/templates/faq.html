@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="max-width: 800px; margin: 0 auto;">
+  <h1>Frequently Asked Questions</h1>
+  
+  <div class="card" style="margin: 24px 0;">
+    <h3>🎭 For Artists</h3>
+    
+    <details style="margin: 16px 0; padding: 12px; border: 1px solid #2a365f; border-radius: 8px;">
+      <summary style="cursor: pointer; font-weight: 600;">How do I get verified on ArtistConnect?</summary>
+      <p style="margin-top: 12px;">Upload clear profile photos, add demo videos/links, fill out your complete profile, and provide valid contact information. Our team reviews profiles within 2-3 business days.</p>
+    </details>
+    
+    <details style="margin: 16px 0; padding: 12px; border: 1px solid #2a365f; border-radius: 8px;">
+      <summary style="cursor: pointer; font-weight: 600;">When do I get paid for my performances?</summary>
+      <p style="margin-top: 12px;">Payment is released 24 hours after your successful performance. You'll receive payment via bank transfer or UPI as per your preference.</p>
+    </details>
+    
+    <details style="margin: 16px 0; padding: 12px; border: 1px solid #2a365f; border-radius: 8px;">
+      <summary style="cursor: pointer; font-weight: 600;">What if an organizer cancels last minute?</summary>
+      <p style="margin-top: 12px;">Cancellations within 24 hours require 50% payment. Within 6 hours require full payment. We protect artists from last-minute cancellations.</p>
+    </details>
+    
+    <details style="margin: 16px 0; padding: 12px; border: 1px solid #2a365f; border-radius: 8px;">
+      <summary style="cursor: pointer; font-weight: 600;">Can I set my own rates?</summary>
+      <p style="margin-top: 12px;">Yes! You have full control over your pricing. Set different rates for different types of events, and adjust based on demand in your area.</p>
+    </details>
+  </div>
+
+  <div class="card" style="margin: 24px 0;">
+    <h3>🎪 For Organizers</h3>
+    
+    <details style="margin: 16px 0; padding: 12px; border: 1px solid #2a365f; border-radius: 8px;">
+      <summary style="cursor: pointer; font-weight: 600;">How do I know if an artist is reliable?</summary>
+      <p style="margin-top: 12px;">Look for verified badges, check their demo videos, read previous reviews, and check their response time. Verified artists have been vetted by our team.</p>
+    </details>
+    
+    <details style="margin: 16px 0; padding: 12px; border: 1px solid #2a365f; border-radius: 8px;">
+      <summary style="cursor: pointer; font-weight: 600;">What if an artist doesn't show up?</summary>
+      <p style="margin-top: 12px;">Contact our emergency hotline immediately. We'll help find a replacement artist and the original artist will be penalized. Your booking fee will be refunded.</p>
+    </details>
+    
+    <details style="margin: 16px 0; padding: 12px; border: 1px solid #2a365f; border-radius: 8px;">
+      <summary style="cursor: pointer; font-weight: 600;">Can I get a refund if I cancel?</summary>
+      <p style="margin-top: 12px;">Refund policy: Cancel 7+ days before = full refund. 3-7 days = 50% refund. Less than 3 days = no refund (artist compensation).</p>
+    </details>
+    
+    <details style="margin: 16px 0; padding: 12px; border: 1px solid #2a365f; border-radius: 8px;">
+      <summary style="cursor: pointer; font-weight: 600;">Are there any hidden fees?</summary>
+      <p style="margin-top: 12px;">No hidden fees! You pay the artist's rate + 10% service fee. Everything is transparent upfront. No surprise charges ever.</p>
+    </details>
+  </div>
+
+  <div class="card" style="margin: 24px 0;">
+    <h3>🔒 Safety & Trust</h3>
+    
+    <details style="margin: 16px 0; padding: 12px; border: 1px solid #2a365f; border-radius: 8px;">
+      <summary style="cursor: pointer; font-weight: 600;">How do you ensure safety during events?</summary>
+      <p style="margin-top: 12px;">All artists undergo background verification. We provide emergency contact support. Both parties exchange contact info only after confirmed booking.</p>
+    </details>
+    
+    <details style="margin: 16px 0; padding: 12px; border: 1px solid #2a365f; border-radius: 8px;">
+      <summary style="cursor: pointer; font-weight: 600;">Is my personal information secure?</summary>
+      <p style="margin-top: 12px;">Yes! We use bank-level encryption. Personal details are only shared between confirmed booking parties. We never sell your data.</p>
+    </details>
+  </div>
+
+  <div style="text-align: center; margin: 32px 0;">
+    <p>Still have questions?</p>
+    <a href="{{ url_for('contact') }}" class="btn">Contact Support</a>
+  </div>
+</div>
+{% endblock %}

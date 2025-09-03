@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="max-width: 900px; margin: 0 auto;">
+  <h1>How ArtistConnect Works</h1>
+  <p style="text-align: center; font-size: 18px; margin-bottom: 40px;">Connect with talented artists in just a few simple steps</p>
+  
+  <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 32px; margin: 40px 0;">
+    <div>
+      <h2>🎭 For Artists</h2>
+      
+      <div class="card" style="margin: 16px 0;">
+        <h4 style="color: var(--primary);">1. Create Your Profile</h4>
+        <p>Sign up, add your photos, showcase your talent with demo videos, set your rates, and list your availability.</p>
+      </div>
+      
+      <div class="card" style="margin: 16px 0;">
+        <h4 style="color: var(--primary);">2. Get Discovered</h4>
+        <p>Organizers browse and find you based on location, category, and style. Your profile appears in search results.</p>
+      </div>
+      
+      <div class="card" style="margin: 16px 0;">
+        <h4 style="color: var(--primary);">3. Receive Booking Requests</h4>
+        <p>Get detailed requests with event info, venue, date, and budget. Review and decide to accept or decline.</p>
+      </div>
+      
+      <div class="card" style="margin: 16px 0;">
+        <h4 style="color: var(--primary);">4. Perform & Get Paid</h4>
+        <p>Show up, perform your best, and receive payment automatically after successful completion.</p>
+      </div>
+    </div>
+
+    <div>
+      <h2>🎪 For Organizers</h2>
+      
+      <div class="card" style="margin: 16px 0;">
+        <h4 style="color: var(--accent);">1. Browse Artists</h4>
+        <p>Search by location, category (singer, DJ, dancer, etc.), budget, and availability to find perfect matches.</p>
+      </div>
+      
+      <div class="card" style="margin: 16px 0;">
+        <h4 style="color: var(--accent);">2. View Profiles & Demos</h4>
+        <p>Check out photos, videos, previous reviews, and rates. Get a real feel for their style and talent.</p>
+      </div>
+      
+      <div class="card" style="margin: 16px 0;">
+        <h4 style="color: var(--accent);">3. Send Booking Request</h4>
+        <p>Fill in your event details - date, venue, type of event, budget. Send personalized message to the artist.</p>
+      </div>
+      
+      <div class="card" style="margin: 16px 0;">
+        <h4 style="color: var(--accent);">4. Enjoy Your Event</h4>
+        <p>Once accepted, coordinate directly with the artist. Enjoy amazing entertainment at your event!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin: 40px 0; text-align: center;">
+    <h3>🛡️ Protected by ArtistConnect</h3>
+    <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 20px 0;">
+      <div>
+        <strong>✅ Verified Artists</strong>
+        <p class="muted">Background checked & skill verified</p>
+      </div>
+      <div>
+        <strong>💳 Secure Payments</strong>
+        <p class="muted">Money held safely until performance</p>
+      </div>
+      <div>
+        <strong>📞 24/7 Support</strong>
+        <p class="muted">Help available during your event</p>
+      </div>
+      <div>
+        <strong>⭐ Reviews & Ratings</strong>
+        <p class="muted">Transparent feedback system</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align: center; margin: 40px 0;">
+    <h3>Ready to get started?</h3>
+    <div class="actions">
+      <a href="{{ url_for('register') }}?role=artist" class="btn">Join as Artist</a>
+      <a href="{{ url_for('register') }}?role=organizer" class="btn-outline">Find Artists</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

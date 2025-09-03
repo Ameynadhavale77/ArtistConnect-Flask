@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="max-width: 800px; margin: 0 auto;">
+  <h1>Customer Support</h1>
+  <p>We're here to help! Get in touch with our support team for any questions or issues.</p>
+  
+  <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 24px; margin: 24px 0;">
+    <div class="card">
+      <h3>📧 Email Support</h3>
+      <p>For general inquiries and support</p>
+      <p><strong>support@artistconnect.com</strong></p>
+      <p class="muted">Response time: 24 hours</p>
+    </div>
+    
+    <div class="card">
+      <h3>🚨 Urgent Issues</h3>
+      <p>For urgent booking or payment issues</p>
+      <p><strong>urgent@artistconnect.com</strong></p>
+      <p class="muted">Response time: 4 hours</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin: 24px 0;">
+    <h3>Send us a message</h3>
+    <form method="post" class="form">
+      <label>Your Name
+        <input type="text" name="name" required>
+      </label>
+      <label>Email Address
+        <input type="email" name="email" required>
+      </label>
+      <label>Subject
+        <select name="subject" required>
+          <option value="">Select a topic</option>
+          <option value="booking_issue">Booking Issue</option>
+          <option value="account_help">Account Help</option>
+          <option value="payment_question">Payment Question</option>
+          <option value="artist_verification">Artist Verification</option>
+          <option value="technical_issue">Technical Issue</option>
+          <option value="general_inquiry">General Inquiry</option>
+        </select>
+      </label>
+      <label>Message
+        <textarea name="message" rows="5" required placeholder="Please describe your issue or question in detail..."></textarea>
+      </label>
+      <button class="btn" type="submit">Send Message</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <h3>📞 Need Immediate Help?</h3>
+    <p>For urgent matters during events:</p>
+    <ul>
+      <li><strong>Artists:</strong> If you can't reach your organizer, call +91-8888-ARTIST</li>
+      <li><strong>Organizers:</strong> If your artist doesn't show up, call +91-8888-ORGANIZER</li>
+    </ul>
+    <p class="muted">Available 24/7 during event hours (6 PM - 2 AM)</p>
+  </div>
+</div>
+{% endblock %}

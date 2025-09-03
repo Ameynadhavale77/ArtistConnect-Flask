@@ -11,6 +11,7 @@
     <a href="{{ url_for('index') }}" class="brand">ArtistConnect</a>
     <div class="spacer"></div>
     <a href="{{ url_for('artists_list') }}">Browse Artists</a>
+    <a href="{{ url_for('how_it_works') }}">How it Works</a>
     {% if session.get('user_id') %}
       <a href="{{ url_for('dashboard') }}">Dashboard</a>
       <a href="{{ url_for('logout') }}">Logout</a>
@@ -32,7 +33,54 @@
     {% block content %}{% endblock %}
   </main>
   <footer class="footer">
-    Made with ❤️ by Amey · MVP
+    <div style="max-width: 1000px; margin: 0 auto; text-align: left;">
+      <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; margin-bottom: 24px;">
+        <div>
+          <h4 style="color: var(--text); margin-bottom: 12px;">Support</h4>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <a href="{{ url_for('contact') }}" class="link">Contact Us</a>
+            <a href="{{ url_for('faq') }}" class="link">FAQ</a>
+            <a href="{{ url_for('how_it_works') }}" class="link">How it Works</a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 style="color: var(--text); margin-bottom: 12px;">Trust & Safety</h4>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <span class="muted">✅ Verified Artists</span>
+            <span class="muted">🔒 Secure Payments</span>
+            <span class="muted">📞 24/7 Support</span>
+            <span class="muted">⭐ Reviews & Ratings</span>
+          </div>
+        </div>
+        
+        <div>
+          <h4 style="color: var(--text); margin-bottom: 12px;">For Artists</h4>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <a href="{{ url_for('register') }}?role=artist" class="link">Join as Artist</a>
+            <span class="muted">Earn money performing</span>
+            <span class="muted">Build your fanbase</span>
+          </div>
+        </div>
+        
+        <div>
+          <h4 style="color: var(--text); margin-bottom: 12px;">For Organizers</h4>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <a href="{{ url_for('register') }}?role=organizer" class="link">Find Artists</a>
+            <span class="muted">Book verified talent</span>
+            <span class="muted">Make events memorable</span>
+          </div>
+        </div>
+      </div>
+      
+      <div style="border-top: 1px solid #2a365f; padding-top: 16px; text-align: center;">
+        <p class="muted" style="margin: 0;">
+          Made with ❤️ for the creative community | 
+          <a href="{{ url_for('contact') }}" class="link">Support</a> | 
+          Secure & Trusted Platform
+        </p>
+      </div>
+    </div>
   </footer>
 </body>
 </html>

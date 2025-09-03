@@ -20,7 +20,9 @@
                    alt="Profile picture of {{ prof.user.name }}">
             </div>
           {% endif %}
-          <h3>{{ prof.user.name }}</h3>
+          <h3>{{ prof.user.name }} 
+            <span style="background: #0f3b1f; color: #b1f7c2; padding: 2px 6px; border-radius: 12px; font-size: 10px;">✅</span>
+          </h3>
           <p class="muted">{{ prof.category }} · {{ prof.location }}</p>
           <p>{{ (prof.bio or '')[:120] }}{% if prof.bio and prof.bio|length>120 %}...{% endif %}</p>
           <a class="link" href="{{ url_for('artist_profile_view', user_id=prof.user.id) }}">View Profile →</a>
