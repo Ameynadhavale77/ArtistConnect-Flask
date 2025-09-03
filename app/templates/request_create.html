@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Booking Request for {{ artist.name }}</h2>
+<form method="post" class="form">
+  <label>Event Date <input type="text" name="event_date" placeholder="DD/MM/YYYY" required></label>
+  <label>Venue <input type="text" name="venue" placeholder="Hall/Address" required></label>
+  <label>Budget (optional) <input type="text" name="budget" placeholder="₹"></label>
+  <label>Message <textarea name="message" rows="4" placeholder="Event details, duration, audience size..."></textarea></label>
+  <button class="btn" type="submit">Send Request</button>
+</form>
+{% endblock %}

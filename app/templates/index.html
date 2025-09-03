@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+  <section class="hero">
+    <h1>Find Artists. Book for Your Event in Minutes.</h1>
+    <p>Discover singers, DJs, dancers, comedians and more.</p>
+    <div class="actions">
+      <a class="btn" href="{{ url_for('artists_list') }}">Browse Artists</a>
+      <a class="btn-outline" href="{{ url_for('register') }}">Register as Artist</a>
+    </div>
+  </section>
+  <section>
+    <h2>Featured Artists</h2>
+    <div class="grid">
+      {% for prof in top_artists %}
+        <div class="card">
+          <h3>{{ prof.user.name }}</h3>
+          <p class="muted">{{ prof.category }} · {{ prof.location }}</p>
+          <p>{{ (prof.bio or '')[:120] }}{% if prof.bio and prof.bio|length>120 %}...{% endif %}</p>
+          <a class="link" href="{{ url_for('artist_profile_view', user_id=prof.user.id) }}">View Profile →</a>
+        </div>
+      {% else %}
+        <p>No artists yet. Be the first to <a href="{{ url_for('register') }}">register</a>!</p>
+      {% endfor %}
+    </div>
+  </section>
+{% endblock %}

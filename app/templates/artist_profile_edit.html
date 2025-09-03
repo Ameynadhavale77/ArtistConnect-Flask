@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Edit Artist Profile</h2>
+<form method="post" class="form">
+  <label>Category <input type="text" name="category" value="{{ profile.category or '' }}" placeholder="Singer, DJ, Dancer..." required></label>
+  <label>Location <input type="text" name="location" value="{{ profile.location or '' }}" placeholder="Mumbai, Pune..." required></label>
+  <label>Charges (optional) <input type="text" name="charges" value="{{ profile.charges or '' }}" placeholder="e.g. ₹5000 per show"></label>
+  <label>Bio <textarea name="bio" rows="5" placeholder="Tell organizers about yourself">{{ profile.bio or '' }}</textarea></label>
+  <label>Demo Links (one per line)<textarea name="demo_links" rows="4" placeholder="YouTube/Drive/Spotify links">{{ profile.demo_links or '' }}</textarea></label>
+  <button class="btn" type="submit">Save Profile</button>
+</form>
+{% endblock %}

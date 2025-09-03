@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="profile">
+  <div class="profile-header">
+    <h2>{{ artist.name }}</h2>
+    <p class="muted">{{ artist.artist_profile.category }} · {{ artist.artist_profile.location }}</p>
+  </div>
+  <p>{{ artist.artist_profile.bio|safe }}</p>
+  {% if artist.artist_profile.charges %}
+    <p><strong>Charges:</strong> {{ artist.artist_profile.charges }}</p>
+  {% endif %}
+  <h3>Demo Links</h3>
+  <ul>
+    {% for line in (artist.artist_profile.demo_links or '').splitlines() if line.strip() %}
+      <li><a class="link" href="{{ line.strip() }}" target="_blank">{{ line.strip() }}</a></li>
+    {% else %}
+      <li class="muted">No demos yet.</li>
+    {% endfor %}
+  </ul>
+  {% if session.get('user_id') %}
+    {% set uid = session.get('user_id') %}
+  {% endif %}
+  {% if not session.get('user_id') or (session.get('user_id') and artist.id != session.get('user_id')) %}
+    <a class="btn" href="{{ url_for('request_create', artist_user_id=artist.id) }}">Send Booking Request</a>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Artist Dashboard</h2>
+<p>Welcome, {{ user.name }}!</p>
+<p><a class="btn" href="{{ url_for('artist_profile_edit') }}">Edit Profile</a></p>
+<h3>Booking Requests</h3>
+<table class="table">
+  <thead><tr><th>Date</th><th>Venue</th><th>Budget</th><th>Message</th><th>Status</th><th>Actions</th></tr></thead>
+  <tbody>
+    {% for r in requests %}
+      <tr>
+        <td>{{ r.event_date }}</td>
+        <td>{{ r.venue }}</td>
+        <td>{{ r.budget or '-' }}</td>
+        <td>{{ r.message or '-' }}</td>
+        <td><span class="badge {{ r.status }}">{{ r.status }}</span></td>
+        <td>
+          {% if r.status == 'pending' %}
+            <a class="btn-small" href="{{ url_for('request_accept', req_id=r.id) }}">Accept</a>
+            <a class="btn-small-outline" href="{{ url_for('request_reject', req_id=r.id) }}">Reject</a>
+          {% else %}
+            —
+          {% endif %}
+        </td>
+      </tr>
+    {% else %}
+      <tr><td colspan="6">No requests yet.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

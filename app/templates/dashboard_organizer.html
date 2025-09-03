@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Organizer Dashboard</h2>
+<p>Welcome, {{ user.name }}!</p>
+<h3>My Booking Requests</h3>
+<table class="table">
+  <thead><tr><th>Artist</th><th>Date</th><th>Venue</th><th>Budget</th><th>Status</th></tr></thead>
+  <tbody>
+    {% for r in requests %}
+      <tr>
+        <td><a class="link" href="{{ url_for('artist_profile_view', user_id=r.artist_id) }}">View Artist</a></td>
+        <td>{{ r.event_date }}</td>
+        <td>{{ r.venue }}</td>
+        <td>{{ r.budget or '-' }}</td>
+        <td><span class="badge {{ r.status }}">{{ r.status }}</span></td>
+      </tr>
+    {% else %}
+      <tr><td colspan="5">No requests yet.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

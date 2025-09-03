@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Browse Artists</h2>
+<form method="get" class="filters">
+  <input type="text" name="category" placeholder="Category (Singer, DJ...)" value="{{ q_category }}">
+  <input type="text" name="location" placeholder="Location (Mumbai...)" value="{{ q_location }}">
+  <button class="btn" type="submit">Filter</button>
+</form>
+<div class="grid">
+  {% for prof in artists %}
+    <div class="card">
+      <h3>{{ prof.user.name }}</h3>
+      <p class="muted">{{ prof.category }} · {{ prof.location }}</p>
+      <p>{{ (prof.bio or '')[:120] }}{% if prof.bio and prof.bio|length>120 %}...{% endif %}</p>
+      <a class="link" href="{{ url_for('artist_profile_view', user_id=prof.user.id) }}">View Profile →</a>
+    </div>
+  {% else %}
+    <p>No artists match your filters yet.</p>
+  {% endfor %}
+</div>
+{% endblock %}
