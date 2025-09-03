@@ -1,22 +1,162 @@
 {% extends "base.html" %}
 {% block content %}
-<h2>Organizer Dashboard</h2>
-<p>Welcome, {{ user.name }}!</p>
-<h3>My Booking Requests</h3>
-<table class="table">
-  <thead><tr><th>Artist</th><th>Date</th><th>Venue</th><th>Budget</th><th>Status</th></tr></thead>
-  <tbody>
-    {% for r in requests %}
-      <tr>
-        <td><a class="link" href="{{ url_for('artist_profile_view', user_id=r.artist_id) }}">View Artist</a></td>
-        <td>{{ r.event_date }}</td>
-        <td>{{ r.venue }}</td>
-        <td>{{ r.budget or '-' }}</td>
-        <td><span class="badge {{ r.status }}">{{ r.status }}</span></td>
-      </tr>
-    {% else %}
-      <tr><td colspan="5">No requests yet.</td></tr>
-    {% endfor %}
-  </tbody>
-</table>
+<div style="max-width: 1200px; margin: 0 auto;">
+  <h2>Organizer Dashboard</h2>
+  <p>Welcome back, {{ user.name }}! 🎪 Ready to create amazing events?</p>
+
+  <!-- Quick Stats Overview -->
+  <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 24px 0;">
+    <div class="card" style="text-align: center;">
+      <h3 style="color: var(--primary); margin: 0;">{{ requests|selectattr("status", "equalto", "pending")|list|length }}</h3>
+      <p class="muted">Pending Requests</p>
+    </div>
+    <div class="card" style="text-align: center;">
+      <h3 style="color: var(--accent); margin: 0;">{{ requests|selectattr("status", "equalto", "accepted")|list|length }}</h3>
+      <p class="muted">Confirmed Bookings</p>
+    </div>
+    <div class="card" style="text-align: center;">
+      <h3 style="color: #22d3ee; margin: 0;">{{ requests|length }}</h3>
+      <p class="muted">Total Requests</p>
+    </div>
+  </div>
+
+  <!-- Quick Booking Options -->
+  <div class="card" style="margin: 24px 0;">
+    <h3>🎯 Quick Booking Actions</h3>
+    <div class="actions">
+      <a class="btn" href="{{ url_for('artists_list') }}">🔍 Browse All Artists</a>
+      <a class="btn-outline" href="{{ url_for('artists_list') }}?category=singer">🎤 Find Singers</a>
+      <a class="btn-outline" href="{{ url_for('artists_list') }}?category=dj">🎧 Find DJs</a>
+      <a class="btn-outline" href="{{ url_for('artists_list') }}?category=dancer">💃 Find Dancers</a>
+    </div>
+  </div>
+
+  <!-- Featured Artists for Quick Booking -->
+  <div class="card" style="margin: 24px 0;">
+    <h3>⭐ Featured Artists - Book Now</h3>
+    <p class="muted">Top-rated artists ready for your next event</p>
+    
+    <div class="grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin: 16px 0;">
+      <!-- This would need to be populated by the route -->
+      <div class="card" style="background: var(--bg); border: 1px solid #2a365f;">
+        <div style="text-align: center; margin-bottom: 12px;">
+          <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #4f8cff, #22d3ee); border-radius: 50%; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-size: 24px;">🎤</div>
+        </div>
+        <h4 style="text-align: center; margin: 8px 0;">Popular in Your Area</h4>
+        <p class="muted" style="text-align: center; font-size: 14px;">Singers • DJs • Dancers</p>
+        <a href="{{ url_for('artists_list') }}" class="btn" style="width: 100%; text-align: center;">Explore Artists</a>
+      </div>
+      
+      <div class="card" style="background: var(--bg); border: 1px solid #2a365f;">
+        <div style="text-align: center; margin-bottom: 12px;">
+          <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #22d3ee, #4f8cff); border-radius: 50%; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-size: 24px;">⚡</div>
+        </div>
+        <h4 style="text-align: center; margin: 8px 0;">Quick Response</h4>
+        <p class="muted" style="text-align: center; font-size: 14px;">Artists who respond fast</p>
+        <a href="{{ url_for('artists_list') }}" class="btn-outline" style="width: 100%; text-align: center;">Find Now</a>
+      </div>
+      
+      <div class="card" style="background: var(--bg); border: 1px solid #2a365f;">
+        <div style="text-align: center; margin-bottom: 12px;">
+          <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #fbbf24, #f59e0b); border-radius: 50%; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-size: 24px;">💰</div>
+        </div>
+        <h4 style="text-align: center; margin: 8px 0;">Budget Friendly</h4>
+        <p class="muted" style="text-align: center; font-size: 14px;">Great value artists</p>
+        <a href="{{ url_for('artists_list') }}" class="btn-outline" style="width: 100%; text-align: center;">Browse</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Booking Requests Management -->
+  <div class="card">
+    <h3>📋 My Booking Requests</h3>
+    
+    {% set pending_requests = requests|selectattr("status", "equalto", "pending")|list %}
+    {% if pending_requests %}
+      <div style="background: #0f203b; color: #b1d1f7; padding: 12px; border-radius: 8px; margin: 16px 0;">
+        <strong>⏳ {{ pending_requests|length }} requests awaiting artist response</strong>
+      </div>
+    {% endif %}
+
+    <div style="overflow-x: auto;">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Artist</th>
+            <th>Event Date</th>
+            <th>Venue</th>
+            <th>Budget</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for r in requests %}
+            <tr style="{% if r.status == 'pending' %}background: rgba(79, 140, 255, 0.1);{% endif %}">
+              <td>
+                <a class="link" href="{{ url_for('artist_profile_view', user_id=r.artist_id) }}">
+                  <strong>View Artist Profile</strong>
+                </a><br>
+                <span class="muted" style="font-size: 12px;">ID: {{ r.artist_id }}</span>
+              </td>
+              <td><strong>{{ r.event_date }}</strong></td>
+              <td>{{ r.venue }}</td>
+              <td>{% if r.budget %}<strong>{{ r.budget }}</strong>{% else %}<span class="muted">Not specified</span>{% endif %}</td>
+              <td>
+                <span class="badge {{ r.status }}">
+                  {% if r.status == 'pending' %}⏳ Pending
+                  {% elif r.status == 'accepted' %}✅ Confirmed
+                  {% elif r.status == 'rejected' %}❌ Declined
+                  {% endif %}
+                </span>
+              </td>
+              <td>
+                {% if r.status == 'accepted' %}
+                  <span style="color: #22d3ee;">🎉 Booked!</span>
+                {% elif r.status == 'pending' %}
+                  <span class="muted">Waiting for response...</span>
+                {% else %}
+                  <a href="{{ url_for('artists_list') }}" class="btn-small">Find Another</a>
+                {% endif %}
+              </td>
+            </tr>
+          {% else %}
+            <tr>
+              <td colspan="6" style="text-align: center; padding: 40px;">
+                <div>
+                  <h4>No booking requests yet</h4>
+                  <p class="muted">Start by browsing artists and sending your first booking request!</p>
+                  <a href="{{ url_for('artists_list') }}" class="btn">Browse Artists</a>
+                </div>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Tips for Better Bookings -->
+  {% if requests|length < 2 %}
+  <div class="card" style="margin-top: 24px; background: linear-gradient(135deg, #0f3b1f, #11162a);">
+    <h3>💡 Tips for Successful Bookings</h3>
+    <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 16px;">
+      <div>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin: 8px 0;">📝 Be specific about your event details</li>
+          <li style="margin: 8px 0;">💰 Provide a clear budget range</li>
+          <li style="margin: 8px 0;">📅 Book artists well in advance</li>
+        </ul>
+      </div>
+      <div>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin: 8px 0;">🤝 Send personalized messages</li>
+          <li style="margin: 8px 0;">📞 Include contact information</li>
+          <li style="margin: 8px 0;">⭐ Check reviews and demos</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</div>
 {% endblock %}
